@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { auth, signIn } from "../../../../auth";
-import "./signin.scss";
 
 export const metadata: Metadata = { title: "auth test" };
 
