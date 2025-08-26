@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { Profile } from "next-auth";
 import { authConfig } from "./auth.config";
-import { OAuthUserConfig } from "next-auth/providers";
-import { GoogleProfile } from "next-auth/providers/google";
+import { OAuthUserConfig, OIDCConfig } from "next-auth/providers";
+import Google, { GoogleProfile } from "next-auth/providers/google";
 import c from "ansi-colors";
 
 const authEnabled = process.env.AUTH_ENABLED;
@@ -16,7 +16,7 @@ const googleConfig: Partial<OAuthUserConfig<GoogleProfile>> = {
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 };
 
-const UWConfig = {
+const UWConfig: Partial<OIDCConfig<Profile>> = {
   issuer: process.env.UW_OIDC_ISSUER,
   clientId: process.env.UW_OIDC_CLIENT_ID,
   clientSecret: process.env.UW_OIDC_CLIENT_SECRET,
@@ -25,10 +25,12 @@ const UWConfig = {
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   providers: [
-    // Google(googleConfig),
+    Google(googleConfig),
     {
-      id: "uw-adfs", // signIn(<id>)
-      name: "University of Waterloo ADFS", // optional
+      // in retrospect, this was a bad choice of id. We have a DUO OIDC instance configured with UW, which this
+      // reaches out to. We are not directly calling ADFS. oops.
+      id: "uw-adfs",
+      name: "University of Waterloo DUO OIDC",
       type: "oidc",
       issuer: UWConfig.issuer,
       clientId: UWConfig.clientId,
