@@ -6,8 +6,8 @@ export const metadata: Metadata = { title: "auth test" };
 export default async function ProtectedPage() {
   const session = await auth();
   if (!session) {
-    signIn("uw-adfs");
+    signIn("google");
   }
 
-  return "this page requires UW auth";
+  return "this page requires google auth";
 }
