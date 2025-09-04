@@ -137,20 +137,6 @@ Photographers help out with taking pictures of MathSoc events, our clubs or volu
 
 [Apply here for Fall 2025!](https://forms.gle/7cH5troFTmVVaio69)
 
-## Web developer / designer
-
-Web Developers are responsible for developing elements of the new upcoming MathSoc website. We’re looking with people with any level of familiarity with web development - from literally none to upper-year students.
-
-**Responsibilities may include:**
-
-- Helping the VP, Communications with content changes to the website
-- Designing and building new static pages to support MathSoc's needs
-- Adding new infrastructure or improving existing infrastructure
-
-Our technologies include React (JavaScript/TypeScript, NextJS), SASS, Git / GitHub, and of course, HTML/CSS. If you don't know everything, don't worry - this can be a good opportunity to learn!
-
-[Apply here for Fall 2025!](https://forms.gle/7cH5troFTmVVaio69)
-
 # Academic
 
 ## Deputy Vice President, Academic
