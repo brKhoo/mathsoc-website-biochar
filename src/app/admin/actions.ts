@@ -23,13 +23,14 @@ export const listExamsAction = async (): Promise<Exam[]> => {
   }
 
   console.warn(`Querying Google for exams list!`);
-  const examList = await storage
-    .bucket(EXAMS_BUCKET_NAME)
-    .file(EXAM_LIST_NAME)
-    .download()
-    .then((res) => res.toString());
+  // const examList = await storage
+  //   .bucket(EXAMS_BUCKET_NAME)
+  //   .file(EXAM_LIST_NAME)
+  //   .download()
+  //   .then((res) => res.toString());
 
-  return JSON.parse(examList);
+  // return JSON.parse(examList);
+  return [];
 };
 
 // @todo protect with authentication
