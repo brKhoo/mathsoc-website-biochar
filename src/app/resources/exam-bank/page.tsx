@@ -8,7 +8,7 @@ import { protectToStudents } from "../../auth.actions";
 export const metadata: Metadata = { title: "Exam Bank" };
 
 export default async function ExamBankPage() {
-  await protectToStudents();
+  await protectToStudents("/resources/exam-bank");
 
   return (
     <Page id="exam-bank-page">

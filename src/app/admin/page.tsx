@@ -5,7 +5,7 @@ import { ExamUploads } from "./components/exam-uploads/exam-uploads";
 import { protectToStudents } from "../auth.actions";
 
 export default async function Admin() {
-  const session = await protectToStudents();
+  const session = await protectToStudents("/admin");
 
   return (
     <Page id="admin-page" size="large">

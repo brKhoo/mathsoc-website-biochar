@@ -21,31 +21,35 @@ export const isAdmin = async (session: Session | null) => {
   return session?.user?.email?.includes?.("mathsoc.uwaterloo.ca");
 };
 
-export async function protectToStudents(): Promise<Session> {
+export async function protectToStudents(currentURL: string): Promise<Session> {
   if (await isAuthDisabled()) {
     console.warn("⚠️ Skipping UW authentication");
   }
 
   const session = await auth();
   if (!session) {
-    redirect("/api/auth/signin/uw-adfs");
+    redirect(`/api/mathsoc-auth/sign-in/student?redirect_url=${currentURL}`);
   }
 
   return session;
 }
 
-export async function protectToAdmins(): Promise<Session> {
+export async function protectToAdmins(currentURL: string): Promise<Session> {
   if (await isAuthDisabled()) {
     console.warn("⚠️ Skipping admin authentication");
   }
 
   const session = await auth();
   if (!session) {
-    redirect("/api/auth/signin/google");
+    redirect(
+      `/api/mathsoc-auth/sign-in/admin?redirect_url=${currentURL ?? ""}`,
+    );
   }
 
   if (!(await isAdmin(session))) {
-    redirect("/api/auth/signout");
+    redirect(
+      `/api/mathsoc-auth/sign-in/student?redirect_url=${currentURL ?? ""}`,
+    );
   }
 
   return session;

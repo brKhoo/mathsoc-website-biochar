@@ -4,7 +4,7 @@ import { protectToAdmins } from "../../auth.actions";
 export const metadata: Metadata = { title: "Admin page" };
 
 export default async function ProtectedPage() {
-  await protectToAdmins();
+  await protectToAdmins("/auth-dev/signin-google");
 
   return "this page requires a minimum of google auth";
 }
