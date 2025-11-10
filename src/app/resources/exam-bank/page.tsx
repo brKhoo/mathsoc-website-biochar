@@ -1,7 +1,6 @@
 import { Banner, BannerTitles } from "@/app/components/banner/banner";
 import { Page } from "@/app/components/page/page-component";
 import { Metadata } from "next";
-import React from "react";
 import "./exam-bank.scss";
 import { ExamsTable } from "@/app/admin/components/exams-table/exams-table";
 import { protectToStudents } from "../../auth.actions";
