@@ -28,7 +28,9 @@ export async function protectToStudents(currentURL: string): Promise<Session> {
 
   const session = await auth();
   if (!session) {
-    redirect(`/api/mathsoc-auth/sign-in/student?redirect_url=${currentURL}`);
+    redirect(
+      `/api/mathsoc-auth/sign-in/student?redirect_url=${encodeURIComponent(currentURL)}`,
+    );
   }
 
   return session;
@@ -42,13 +44,13 @@ export async function protectToAdmins(currentURL: string): Promise<Session> {
   const session = await auth();
   if (!session) {
     redirect(
-      `/api/mathsoc-auth/sign-in/admin?redirect_url=${currentURL ?? ""}`,
+      `/api/mathsoc-auth/sign-in/admin?redirect_url=${encodeURIComponent(currentURL)}`,
     );
   }
 
   if (!(await isAdmin(session))) {
     redirect(
-      `/api/mathsoc-auth/sign-in/student?redirect_url=${currentURL ?? ""}`,
+      `/api/mathsoc-auth/sign-in/student?redirect_url=${encodeURIComponent(currentURL)}`,
     );
   }
 

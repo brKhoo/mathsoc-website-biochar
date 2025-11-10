@@ -8,6 +8,6 @@ export async function GET(request: NextRequest) {
   }
 
   await signIn("google", {
-    redirectTo: redirectUrl,
+    redirectTo: decodeURIComponent(redirectUrl),
   });
 }
