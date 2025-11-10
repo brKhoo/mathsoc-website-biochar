@@ -2,10 +2,10 @@ import "./admin.scss";
 import { Page } from "../components/page/page-component";
 import { ExamsTable } from "./components/exams-table/exams-table";
 import { ExamUploads } from "./components/exam-uploads/exam-uploads";
-import { protectToStudents } from "../auth.actions";
+import { protectToAdmins } from "../auth.actions";
 
 export default async function Admin() {
-  const session = await protectToStudents("/admin");
+  const session = await protectToAdmins("/admin");
 
   return (
     <Page id="admin-page" size="large">

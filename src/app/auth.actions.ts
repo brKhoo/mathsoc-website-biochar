@@ -50,7 +50,7 @@ export async function protectToAdmins(currentURL: string): Promise<Session> {
 
   if (!(await isAdmin(session))) {
     redirect(
-      `/api/mathsoc-auth/sign-in/student?redirect_url=${encodeURIComponent(currentURL)}`,
+      `/api/mathsoc-auth/sign-out/?redirect_url=${encodeURIComponent(currentURL)}`,
     );
   }
 
