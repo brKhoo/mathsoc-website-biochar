@@ -31,13 +31,16 @@ export const listExamsAction = async (): Promise<Exam[]> => {
 export const postExamsAction = async (formData: FormData) => {
   const session = await protectToAdmins("/admin");
 
-  await fetchFromExamBankWorker(
+  const res = await fetchFromExamBankWorker(
     session,
     {
       method: "upload-exams",
     },
     { body: formData, method: "POST" },
   );
+
+  const { exams } = JSON.parse(await res.text());
+  return exams;
 };
 
 export const deleteExamAction = async (file: string): Promise<Exam[]> => {

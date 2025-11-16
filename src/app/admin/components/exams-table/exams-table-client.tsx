@@ -54,7 +54,7 @@ export const ExamsTableClient: React.FC<{
             return (
               <ExamRow
                 exam={exam}
-                key={exam.examFile}
+                key={exam.name}
                 isAdmin={isAdmin}
                 setExams={setExams}
               />
