@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireStudentAuthentication, withErrorHandling } from "../../utils";
-import { fetchFromWorker as fetchFromExamBankWorker } from "../../cloudflare-worker";
+import { fetchFromExamBankWorker } from "../../exam-bank-worker";
 
 /**
  * Returns an exam found at the provided route
@@ -15,10 +15,10 @@ export async function GET(
     const { params } = context;
     const examName = (await params).name;
 
-    const res = await fetchFromExamBankWorker(`/${examName}`, {
-      k: examName,
+    const res = await fetchFromExamBankWorker({
+      method: "get-exam",
       uid: session?.user?.id,
-      type: "get-exam",
+      k: examName,
     });
 
     return new NextResponse(res.body, {

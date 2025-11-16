@@ -1,11 +1,10 @@
 import { ConfigurationError, ExamBankError } from "./errors";
 import crypto from "crypto";
 
-export const fetchFromWorker = async (
-  relativePath: string,
+export const fetchFromExamBankWorker = async (
   payload: object,
 ): Promise<Response> => {
-  const url = getExamBankWorkerURL(relativePath, payload);
+  const url = getExamBankWorkerURL(payload);
 
   const res = await fetch(url.toString());
   if (!res.ok) {
@@ -16,10 +15,15 @@ export const fetchFromWorker = async (
   return res;
 };
 
-const getExamBankWorkerURL = (path: string, payload: object): URL => {
+const getExamBankWorkerURL = (payload: object): URL => {
   const token = encodeMessage(payload);
 
-  const url = new URL(`${process.env.EXAM_BANK_WORKER_HOSTNAME}/${path}`);
+  const hostname = process.env.EXAM_BANK_WORKER_HOSTNAME;
+  if (!hostname) {
+    throw new ConfigurationError("No exam bank worker hostname set");
+  }
+
+  const url = new URL(hostname);
   url.searchParams.set("t", token);
 
   return url;
