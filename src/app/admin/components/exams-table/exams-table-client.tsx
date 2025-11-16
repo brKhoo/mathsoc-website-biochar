@@ -51,39 +51,12 @@ export const ExamsTableClient: React.FC<{
               return null;
             }
 
-            const onDeleteExam = () => {
-              const newExam: Exam = { ...exam, examFile: undefined };
-              const otherExams = exams.filter((e) => e !== exam);
-
-              if (exam.solutionFile) {
-                setExams([...otherExams, newExam]);
-              } else {
-                setExams(otherExams);
-              }
-
-              toast(`Exam ${exam.examFile} deleted!`);
-            };
-
-            const onDeleteSolution = () => {
-              const newExam: Exam = { ...exam, solutionFile: undefined };
-              const otherExams = exams.filter((e) => e !== exam);
-
-              if (exam.examFile) {
-                setExams([...otherExams, newExam]);
-              } else {
-                setExams(otherExams);
-              }
-
-              toast(`Solution ${exam.solutionFile} deleted!`);
-            };
-
             return (
               <ExamRow
                 exam={exam}
                 key={exam.examFile}
                 isAdmin={isAdmin}
-                onDeleteExam={onDeleteExam}
-                onDeleteSolution={onDeleteSolution}
+                setExams={setExams}
               />
             );
           })}
@@ -96,32 +69,27 @@ export const ExamsTableClient: React.FC<{
 const ExamRow: React.FC<{
   exam: Exam;
   isAdmin: boolean;
-  onDeleteExam: () => void;
-  onDeleteSolution: () => void;
-}> = ({ exam, isAdmin, onDeleteExam, onDeleteSolution }) => {
+  setExams: (exams: Exam[]) => void;
+}> = ({ exam, isAdmin, setExams }) => {
   const [department, coursecode, term, ...typeParts] = exam.name.split("-");
 
   const name = `${department} ${coursecode}`;
   const type = typeParts.join(" ").split(".")[0];
 
   const onDelete = useCallback(
-    (file: string) => {
+    async (file: string) => {
       const confirmation = confirm(`Are you sure you want to delete ${file}?`);
 
       if (!confirmation) {
         return;
       }
 
-      deleteExamAction(file);
-      // regenerateExamsListAction() // @todo re-enable;
+      const updatedList = await deleteExamAction(file);
+      setExams(updatedList);
 
-      if (file.includes("-sol")) {
-        onDeleteSolution();
-      } else {
-        onDeleteExam();
-      }
+      toast(`${file} deleted successfully`);
     },
-    [onDeleteExam, onDeleteSolution],
+    [setExams],
   );
 
   return (

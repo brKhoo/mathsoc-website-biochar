@@ -1,8 +1,6 @@
 "use server";
 
-import { EXAMS_BUCKET_NAME } from "./components/util/exam-config";
 import mockExamsList from "./components/util/mock-exams-list.json";
-import { Storage } from "@google-cloud/storage";
 import { Exam } from "./types";
 import { fetchFromExamBankWorker } from "../api/exam-bank-worker";
 import { protectToAdmins, protectToStudents } from "../auth.actions";
@@ -14,8 +12,6 @@ const shouldUseMockData = () => {
 
   return process.env.USE_LIVE_DATA_ON_DEV === "true";
 };
-
-const storage = new Storage();
 
 export const listExamsAction = async (): Promise<Exam[]> => {
   if (shouldUseMockData()) {
@@ -44,14 +40,18 @@ export const postExamsAction = async (formData: FormData) => {
   );
 };
 
-// @todo protect with authentication
-export const deleteExamAction = async (file: string) => {
-  if (shouldUseMockData()) {
-    throw new Error(
-      `Do not meddle with exams unless you know what you are doing!`,
-    );
-  }
+export const deleteExamAction = async (file: string): Promise<Exam[]> => {
+  const session = await protectToAdmins("/admin");
 
-  console.log(`Deleting ${file}...`);
-  await storage.bucket(EXAMS_BUCKET_NAME).file(file).delete();
+  const res = await fetchFromExamBankWorker(
+    session,
+    {
+      method: "delete-exam",
+      k: file,
+    },
+    { method: "DELETE" },
+  );
+
+  const { exams } = JSON.parse(await res.text());
+  return exams;
 };
