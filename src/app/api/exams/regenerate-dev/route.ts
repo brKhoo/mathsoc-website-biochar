@@ -18,9 +18,8 @@ export async function GET(): Promise<NextResponse> {
 
     const session = await requireStudentAuthentication();
 
-    const res = await fetchFromExamBankWorker({
+    const res = await fetchFromExamBankWorker(session, {
       method: "regenerate-list",
-      uid: session?.user?.id,
     });
 
     return new NextResponse(res.body, {

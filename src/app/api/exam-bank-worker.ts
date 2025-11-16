@@ -1,14 +1,18 @@
+import { Session } from "next-auth";
 import { ConfigurationError, ExamBankError } from "./errors";
 import crypto from "crypto";
 
-export const fetchFromExamBankWorker = async (payload: {
-  method: string;
-  uid?: string | null;
-  [argument: string]: unknown; // payload takes any number of additional params
-}): Promise<Response> => {
-  const url = getExamBankWorkerURL(payload);
+export const fetchFromExamBankWorker = async (
+  session: Session,
+  payload: {
+    method: string;
+    [argument: string]: unknown; // payload takes any number of additional params
+  },
+  init: RequestInit = {},
+): Promise<Response> => {
+  const url = getExamBankWorkerURL({ uid: session.user?.email, ...payload });
 
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), init);
   if (!res.ok) {
     console.error(`Exam bank threw an error: ${await res.text()}`);
     throw new ExamBankError();

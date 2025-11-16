@@ -4,19 +4,18 @@ import { Session } from "next-auth";
 import { auth } from "../../../auth";
 import { isAuthDisabled } from "../auth.actions";
 
-export const requireStudentAuthentication =
-  async (): Promise<Session | null> => {
-    if (await isAuthDisabled()) {
-      return null;
-    }
+export const requireStudentAuthentication = async (): Promise<Session> => {
+  if (await isAuthDisabled()) {
+    return { expires: new Date(2077).toISOString() };
+  }
 
-    const session = await auth();
-    if (!session) {
-      throw new UnauthorizedError();
-    }
+  const session = await auth();
+  if (!session) {
+    throw new UnauthorizedError();
+  }
 
-    return session;
-  };
+  return session;
+};
 
 export const withErrorHandling = async (
   fn: () => Promise<NextResponse>,

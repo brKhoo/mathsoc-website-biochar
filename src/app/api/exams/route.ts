@@ -9,9 +9,8 @@ export async function GET(): Promise<NextResponse> {
   return withErrorHandling(async () => {
     const session = await requireStudentAuthentication();
 
-    const res = await fetchFromExamBankWorker({
+    const res = await fetchFromExamBankWorker(session, {
       method: "list-exams",
-      uid: session?.user?.id,
     });
 
     return new NextResponse(res.body, {

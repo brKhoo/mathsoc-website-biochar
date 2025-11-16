@@ -15,9 +15,8 @@ export async function GET(
     const { params } = context;
     const examName = (await params).name;
 
-    const res = await fetchFromExamBankWorker({
+    const res = await fetchFromExamBankWorker(session, {
       method: "get-exam",
-      uid: session?.user?.id,
       k: examName,
     });
 
