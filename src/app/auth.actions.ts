@@ -17,10 +17,14 @@ export const isAuthDisabled = async (): Promise<boolean> => {
   return isDisabled;
 };
 
+export const isAuthEnabled = async (): Promise<boolean> =>
+  isAuthDisabled().then((res: boolean) => !res);
+
 export const isAdmin = async (session: Session | null) => {
   return session?.user?.email?.includes?.("mathsoc.uwaterloo.ca");
 };
 
+// @todo de-duplicate this with the equivalent function in api/utils.
 export async function protectToStudents(currentURL: string): Promise<Session> {
   if (await isAuthDisabled()) {
     console.warn("⚠️ Skipping UW authentication");
