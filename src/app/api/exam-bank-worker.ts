@@ -1,9 +1,11 @@
 import { ConfigurationError, ExamBankError } from "./errors";
 import crypto from "crypto";
 
-export const fetchFromExamBankWorker = async (
-  payload: object,
-): Promise<Response> => {
+export const fetchFromExamBankWorker = async (payload: {
+  method: string;
+  uid?: string | null;
+  [argument: string]: unknown; // payload takes any number of additional params
+}): Promise<Response> => {
   const url = getExamBankWorkerURL(payload);
 
   const res = await fetch(url.toString());

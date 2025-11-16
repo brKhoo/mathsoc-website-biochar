@@ -4,10 +4,7 @@ import { termNumberToString } from "@/app/resources/exam-bank/util";
 import { Button } from "../../../components/button/button.server";
 import { Button as ClientButton } from "../../../components/button/button.client";
 import "./exams-table.scss";
-import {
-  deleteExamAction,
-  regenerateExamsListAction,
-} from "@/app/admin/actions";
+import { deleteExamAction } from "@/app/admin/actions";
 import { Column } from "../../../components/layout/layout-components";
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
@@ -83,7 +80,7 @@ export const ExamsTableClient: React.FC<{
             return (
               <ExamRow
                 exam={exam}
-                key={exam.name}
+                key={exam.examFile}
                 isAdmin={isAdmin}
                 onDeleteExam={onDeleteExam}
                 onDeleteSolution={onDeleteSolution}
@@ -116,7 +113,7 @@ const ExamRow: React.FC<{
       }
 
       deleteExamAction(file);
-      regenerateExamsListAction();
+      // regenerateExamsListAction() // @todo re-enable;
 
       if (file.includes("-sol")) {
         onDeleteSolution();
@@ -158,7 +155,11 @@ const ExamRow: React.FC<{
       <td className="exam-sol">
         {exam.solutionFile ? (
           <>
-            <Button href={exam.solutionFile} variant="pink" size="small">
+            <Button
+              href={`/api/exams/${exam.solutionFile}`}
+              variant="pink"
+              size="small"
+            >
               {isAdmin ? "See solution" : "Solution"}
             </Button>
 
