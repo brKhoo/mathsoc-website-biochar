@@ -5,6 +5,7 @@ import { Navbar } from "./components/navigation/navbar";
 import Footer from "./components/footer/footer";
 import { ToastContainer } from "react-toastify";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const openSans = Open_Sans({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
         <Footer />
         <ToastContainer theme="light" />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
