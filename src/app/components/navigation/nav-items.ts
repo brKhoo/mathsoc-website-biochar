@@ -44,7 +44,7 @@ export const navItems: NavItem[] = [
     children: [
       {
         title: "Exam bank",
-        ref: "https://services.mathsoc.uwaterloo.ca/resources/exam-bank",
+        ref: "/resources/exam-bank",
       },
       {
         title: "Cartoons",
