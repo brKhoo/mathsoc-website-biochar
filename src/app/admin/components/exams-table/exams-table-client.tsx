@@ -104,6 +104,7 @@ const ExamRow: React.FC<{
               href={`/api/exams/${exam.examFile}`}
               variant="pink"
               size="small"
+              prefetch={false}
             >
               {isAdmin ? "See exam" : "Exam"}
             </Button>
@@ -127,6 +128,7 @@ const ExamRow: React.FC<{
               href={`/api/exams/${exam.solutionFile}`}
               variant="pink"
               size="small"
+              prefetch={false}
             >
               {isAdmin ? "See solution" : "Solution"}
             </Button>
