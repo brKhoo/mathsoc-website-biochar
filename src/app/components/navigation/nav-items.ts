@@ -47,6 +47,10 @@ export const navItems: NavItem[] = [
         ref: "https://services.mathsoc.uwaterloo.ca/resources/exam-bank",
       },
       {
+        title: "Cartoons",
+        ref: "/resources/cartoons",
+      },
+      {
         title: "Forms",
         ref: "/resources/forms",
       },
@@ -67,8 +71,8 @@ export const navItems: NavItem[] = [
         ref: "/resources/elections",
       },
       {
-        title: "Cartoons",
-        ref: "/resources/cartoons",
+        title: "Advocacy",
+        ref: "/resources/advocacy",
       },
     ],
   },
