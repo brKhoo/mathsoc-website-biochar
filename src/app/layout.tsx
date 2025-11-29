@@ -36,7 +36,7 @@ export default function RootLayout({
         <Footer />
         <ToastContainer theme="light" />
         <Analytics />
-        <GoogleAnalytics gaId="G-ZCEDFHS5P1" />
+        <GoogleAnalytics gaId="G-F60QNSPFF3" />
       </body>
     </html>
   );
