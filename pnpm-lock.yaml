@@ -23,6 +23,9 @@ importers:
       '@google-cloud/storage':
         specifier: ^7.17.0
         version: 7.17.3
+      '@next/third-parties':
+        specifier: ^16.0.5
+        version: 16.0.5(next@15.5.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.94.2))(react@19.1.0)
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.5.0(next@15.5.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.94.2))(react@19.1.0)
@@ -411,6 +414,12 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
+
+  '@next/third-parties@16.0.5':
+    resolution: {integrity: sha512-0WJh02NI3QAIbczKWXKn9pbpMomej/apc+4MjYplTL2ogBgLJ3E9tEkJrO4Osi6u0yEgILq/cEWLdAXkjiwOIg==}
+    peerDependencies:
+      next: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0-beta.0
+      react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2285,6 +2294,9 @@ packages:
     resolution: {integrity: sha512-resvxdc6Mgb7YEThw6G6bExlXKkv6+YbuzGg9xuXxSgxJF7Ozs+o8Y9+2R3sArdWdW8nOokoQb1yrpFB0pQK2g==}
     engines: {node: '>=14'}
 
+  third-party-capital@1.0.20:
+    resolution: {integrity: sha512-oB7yIimd8SuGptespDAZnNkzIz+NWaJCu2RMsbs4Wmp9zSDUM8Nhi3s2OOcqYuv3mN4hitXc8DVx+LyUmbUDiA==}
+
   throttleit@2.1.0:
     resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
     engines: {node: '>=18'}
@@ -2704,6 +2716,12 @@ snapshots:
 
   '@next/swc-win32-x64-msvc@15.5.6':
     optional: true
+
+  '@next/third-parties@16.0.5(next@15.5.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.94.2))(react@19.1.0)':
+    dependencies:
+      next: 15.5.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.94.2)
+      react: 19.1.0
+      third-party-capital: 1.0.20
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -5048,6 +5066,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  third-party-capital@1.0.20: {}
 
   throttleit@2.1.0: {}
 
